@@ -1,0 +1,24 @@
+name: Download and unzip artifact
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  download-and-unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download artifact
+      id: download-artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: public-folder.zip
+
+    - name: Unzip artifact
+      id: unzip-artifact
+      uses: actions/unzip@v1
+      with:
+        source: ${{ steps.download-artifact.outputs.path }}
+        destination: public
